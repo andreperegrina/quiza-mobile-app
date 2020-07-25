@@ -1,0 +1,11 @@
+export const BACKGROUND = '#16161a';
+export const BUTTON = '#7f5af0';
+export const BUTTON_TEXT = '#fffffe';
+export const HEADLINE = '#fffffe';
+export const PARAGRAPH = '#94a1b2';
+export const STROKE = '#010101';
+export const SECONDARY = '#72757e';
+export const MAIN = '#fffffe';
+export const TERTIARY = '#2cb67d';
+export const HIGHLIGHT = '#7f5af0';
+export const CARD_BACKGROUND = '#242629';
