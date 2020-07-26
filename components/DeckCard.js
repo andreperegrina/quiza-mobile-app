@@ -3,13 +3,13 @@ import {View, Text, StyleSheet} from 'react-native';
 import {MaterialCommunityIcons, Ionicons} from '@expo/vector-icons';
 import {CARD_BACKGROUND, HEADLINE, HIGHLIGHT, PARAGRAPH, SECONDARY} from '../utils/colors'
 
-const DeckCard = ({name, cardsCount, icon}) => {
+const DeckCard = ({title, questions = [], icon}) => {
    return (
       <View style={styles.container}>
          <MaterialCommunityIcons style={styles.icon} name={icon ? icon : "card"} size={40} color={HIGHLIGHT}/>
          <View style={styles.textContainer}>
-            <Text style={styles.nameText}>{name}</Text>
-            <Text style={styles.cardsCountText}>{cardsCount} Cards</Text>
+            <Text style={styles.nameText}>{title}</Text>
+            <Text style={styles.cardsCountText}>{questions.length} Cards</Text>
          </View>
          <Ionicons name="ios-arrow-forward" size={24} color={SECONDARY}/>
       </View>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
    nameText: {
       fontSize: 24,
       color: HEADLINE,
-      marginBottom:5
+      marginBottom: 5
    },
    cardsCountText: {
       fontSize: 18,

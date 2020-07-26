@@ -14,10 +14,11 @@ export const add = async (item) => {
    if (id == null) {
       id = uuidv4();
    }
+   const newItem = {...item, id};
    await AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
-      [id]: item
+      [newItem.id]: newItem
    }));
-   return {...item, id};
+   return newItem;
 };
 
 export const remove = async (id) => {

@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {KeyboardAvoidingView, Text, StyleSheet} from 'react-native';
 import {HEADLINE} from "../utils/colors";
-import PrimaryButton from "../components/PrimaryButton";
 import Field from "../components/Field";
+import {addQuestion} from "../actions";
+import {connect} from "react-redux";
+import CustomButton from "../components/CustomButton";
 
 class NewQuestion extends Component {
    state = {
@@ -16,10 +18,12 @@ class NewQuestion extends Component {
 
    submit = () => {
       const {question, answer} = this.state;
-      const {navigation} = this.props;
+      const {route, navigation, addQuestion} = this.props;
+      const {id} = route.params;
       this.setState({question: '', answer: ''});
-      // TODO: save question in the database
-      navigation.goBack();
+      addQuestion(id, {question, answer}).then(() => navigation.goBack()).catch((e) => {
+         console.error(e);
+      });
    };
 
    render() {
@@ -28,10 +32,10 @@ class NewQuestion extends Component {
          <KeyboardAvoidingView style={styles.container} behavior="padding">
             <Text style={styles.title}>Add new card</Text>
             <Field placeholder={'Question'} style={{alignSelf: 'stretch'}} value={question}
-                   onChange={(e) => this.updateState('question', e.target.value)}/>
+                   onChangeText={(e) => this.updateState('question', e)}/>
             <Field placeholder={'Answer'} style={{alignSelf: 'stretch'}} value={answer}
-                   onChange={(e) => this.updateState('answer', e.target.value)}/>
-            <PrimaryButton title='Submit' style={{marginTop: 30}} onPress={this.submit}/>
+                   onChangeText={(e) => this.updateState('answer', e)}/>
+            <CustomButton type='primary' title='Submit' style={{marginTop: 30}} onPress={this.submit}/>
          </KeyboardAvoidingView>
       );
    }
@@ -52,4 +56,8 @@ const styles = StyleSheet.create({
    },
 });
 
-export default NewQuestion;
+const mapDispatchToProps = {
+   addQuestion
+};
+
+export default connect(undefined, mapDispatchToProps)(NewQuestion);

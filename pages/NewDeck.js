@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
-import {KeyboardAvoidingView, Text, StyleSheet} from 'react-native';
+import {KeyboardAvoidingView, Text, StyleSheet, Keyboard} from 'react-native';
 import {HEADLINE} from "../utils/colors";
-import PrimaryButton from "../components/PrimaryButton";
 import CustomTextInput from "../components/CustomTextInput";
+import {addDeck} from "../actions";
+import {connect} from "react-redux";
+import CustomButton from "../components/CustomButton";
 
 class NewDeck extends Component {
    state = {
-      name: ''
+      title: ''
    };
 
    updateState = (property, value) => {
@@ -14,22 +16,24 @@ class NewDeck extends Component {
    };
 
    create = () => {
-      // TODO: change ID to the database ID
-      const {name} = this.state;
-      const id = 1;
-      this.setState({name: ''});
-      // TODO: save deck in the database
-      this.props.navigation.navigate('Deck Detail', {id});
+      Keyboard.dismiss();
+      const {title} = this.state;
+      this.setState({title: ''});
+      this.props.addDeck({title}).then(({response}) => {
+         this.props.navigation.navigate('Deck Detail', {id: response.id});
+      }).catch((e) => {
+         console.error(e);
+      });
    };
 
    render() {
-      const {name} = this.state;
+      const {title} = this.state;
       return (
          <KeyboardAvoidingView style={styles.container} behavior="padding">
             <Text style={styles.title}>What is the title of your new deck?</Text>
-            <CustomTextInput value={name} placeholder={'Name of the deck'} style={{alignSelf: 'stretch'}}
-                             onChange={(e) => this.updateState('name', e.target.value)}/>
-            <PrimaryButton title='Create Deck' style={{marginTop: 30}} onPress={this.create}/>
+            <CustomTextInput value={title} placeholder={'Title of the deck'} style={{alignSelf: 'stretch'}}
+                             onChangeText={(e) => this.updateState('title', e)}/>
+            <CustomButton type='primary' title='Create Deck' style={{marginTop: 30}} onPress={this.create}/>
          </KeyboardAvoidingView>
       );
    }
@@ -50,4 +54,8 @@ const styles = StyleSheet.create({
    },
 });
 
-export default NewDeck;
+const mapDistpatchToProps = {
+   addDeck
+};
+
+export default connect(undefined, mapDistpatchToProps)(NewDeck);
