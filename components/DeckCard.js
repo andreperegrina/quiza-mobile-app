@@ -41,8 +41,9 @@ const styles = StyleSheet.create({
       marginRight: 20,
    },
    nameText: {
-      fontSize: 28,
-      color: HEADLINE
+      fontSize: 24,
+      color: HEADLINE,
+      marginBottom:5
    },
    cardsCountText: {
       fontSize: 18,

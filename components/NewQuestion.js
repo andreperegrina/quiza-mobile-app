@@ -2,20 +2,21 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {HEADLINE} from "../utils/colors";
 import PrimaryButton from "./PrimaryButton";
-import CustomTextInput from "./CustomTextInput";
+import Field from "./Field";
 
-class NewDeck extends Component {
-   create = () => {
-      const id=1;
-      this.props.navigation.navigate('Deck Detail', {id});
+class NewQuestion extends Component {
+   submit = () => {
+      const {navigation} = this.props;
+      navigation.goBack();
    };
 
    render() {
       return (
          <View style={styles.container}>
-            <Text style={styles.title}>What is the title of your new deck?</Text>
-            <CustomTextInput placeholder={'Name of the deck'} style={{alignSelf: 'stretch'}}/>
-            <PrimaryButton title='Create Deck' style={{marginTop: 30}} onPress={this.create}/>
+            <Text style={styles.title}>Add new card</Text>
+            <Field placeholder={'Question'} style={{alignSelf: 'stretch'}}/>
+            <Field placeholder={'Answer'} style={{alignSelf: 'stretch'}}/>
+            <PrimaryButton title='Submit' style={{marginTop: 30}} onPress={this.submit}/>
          </View>
       );
    }
@@ -36,4 +37,4 @@ const styles = StyleSheet.create({
    },
 });
 
-export default NewDeck;
+export default NewQuestion;

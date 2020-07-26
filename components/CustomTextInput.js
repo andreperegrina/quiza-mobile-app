@@ -1,6 +1,6 @@
 import React from 'react';
 import {TextInput, StyleSheet} from 'react-native';
-import {BUTTON_TEXT, SECONDARY} from "../utils/colors";
+import {PRIMARY_BUTTON_TEXT, CARD_BACKGROUND, SECONDARY} from "../utils/colors";
 
 const CustomTextInput = (props) => {
    return (
@@ -13,12 +13,13 @@ const CustomTextInput = (props) => {
 };
 const styles = StyleSheet.create({
    input: {
-      color: BUTTON_TEXT,
+      color: PRIMARY_BUTTON_TEXT,
+      backgroundColor: CARD_BACKGROUND,
       height: 50,
       padding: 10,
       paddingLeft: 15,
       paddingRight: 15,
-      borderColor: SECONDARY,
+      borderColor: 'transparent',
       borderWidth: 1,
    }
 });

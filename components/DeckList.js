@@ -3,8 +3,13 @@ import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import DeckCard from "./DeckCard";
 
 class DeckList extends Component {
+
+   handleItemClick = (id) => {
+      this.props.navigation.navigate('Deck Detail', {id});
+   };
+
    renderItems = ({item}) => (
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={() => this.handleItemClick(item.id)}>
          <DeckCard key={item.id} {...item}/>
       </TouchableOpacity>
    );
@@ -12,7 +17,8 @@ class DeckList extends Component {
    render() {
       return (
          <View style={styles.container}>
-            <FlatList style={styles.list} data={[{id: '1', name: 'hola', cardsCount: 1}]} renderItem={this.renderItems}/>
+            <FlatList style={styles.list} data={[{id: '1', name: 'hola', cardsCount: 1}]}
+                      renderItem={this.renderItems}/>
          </View>
       );
    }

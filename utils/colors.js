@@ -1,6 +1,8 @@
 export const BACKGROUND = '#16161a';
-export const BUTTON = '#7f5af0';
-export const BUTTON_TEXT = '#fffffe';
+export const PRIMARY_BUTTON = '#7f5af0';
+export const PRIMARY_BUTTON_TEXT = '#fffffe';
+export const SECONDARY_BUTTON = '#242629';
+export const SECONDARY_BUTTON_TEXT = '#7f5af0';
 export const HEADLINE = '#fffffe';
 export const PARAGRAPH = '#94a1b2';
 export const STROKE = '#010101';
