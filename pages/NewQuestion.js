@@ -1,23 +1,38 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {KeyboardAvoidingView, Text, StyleSheet} from 'react-native';
 import {HEADLINE} from "../utils/colors";
 import PrimaryButton from "../components/PrimaryButton";
 import Field from "../components/Field";
 
 class NewQuestion extends Component {
+   state = {
+      question: '',
+      answer: '',
+   };
+
+   updateState = (property, value) => {
+      this.setState({[property]: value})
+   };
+
    submit = () => {
+      const {question, answer} = this.state;
       const {navigation} = this.props;
+      this.setState({question: '', answer: ''});
+      // TODO: save question in the database
       navigation.goBack();
    };
 
    render() {
+      const {question, answer} = this.state;
       return (
-         <View style={styles.container}>
+         <KeyboardAvoidingView style={styles.container} behavior="padding">
             <Text style={styles.title}>Add new card</Text>
-            <Field placeholder={'Question'} style={{alignSelf: 'stretch'}}/>
-            <Field placeholder={'Answer'} style={{alignSelf: 'stretch'}}/>
+            <Field placeholder={'Question'} style={{alignSelf: 'stretch'}} value={question}
+                   onChange={(e) => this.updateState('question', e.target.value)}/>
+            <Field placeholder={'Answer'} style={{alignSelf: 'stretch'}} value={answer}
+                   onChange={(e) => this.updateState('answer', e.target.value)}/>
             <PrimaryButton title='Submit' style={{marginTop: 30}} onPress={this.submit}/>
-         </View>
+         </KeyboardAvoidingView>
       );
    }
 }

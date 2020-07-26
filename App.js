@@ -1,5 +1,6 @@
 import {StatusBar} from 'expo-status-bar';
 import React from 'react';
+import {Provider} from 'react-redux';
 import {StyleSheet, View} from 'react-native';
 import DeckList from "./pages/DeckList";
 import Constants from 'expo-constants';
@@ -13,6 +14,7 @@ import {enableScreens} from 'react-native-screens';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import DeckDetail from "./pages/DeckDetail";
 import NewQuestion from "./pages/NewQuestion";
+import store from "./store";
 
 
 const Tab = createBottomTabNavigator();
@@ -49,36 +51,38 @@ const TabNavigatorHome = () => (
          tabBarIcon: ({color, size}) => <Feather name="plus-circle" size={size} color={color}/>
       }}/>
    </Tab.Navigator>
-)
+);
 
 export default function App() {
    return (
-      <NavigationContainer theme={NavigationTheme}>
-         <View style={styles.container}>
-            <CustomStatusBar backgroundColor={BACKGROUND} barStyle='light'/>
-            <Stack.Navigator>
-               <Stack.Screen name="Home" component={TabNavigatorHome} options={{headerShown: false}}/>
-               <Stack.Screen name="Deck Detail" component={DeckDetail}
-                             options={{
-                                headerStyle: {
-                                   backgroundColor: BACKGROUND,
-                                   color: 'white',
-                                },
-                                headerBackTitle: '',
-                                headerTintColor: 'white'
-                             }}/>
-               <Stack.Screen name="New Question" component={NewQuestion}
-                             options={{
-                                headerStyle: {
-                                   backgroundColor: BACKGROUND,
-                                   color: 'white',
-                                },
-                                headerBackTitle: '',
-                                headerTintColor: 'white'
-                             }}/>
-            </Stack.Navigator>
-         </View>
-      </NavigationContainer>
+      <Provider store={store}>
+         <NavigationContainer theme={NavigationTheme}>
+            <View style={styles.container}>
+               <CustomStatusBar backgroundColor={BACKGROUND} barStyle='light'/>
+               <Stack.Navigator>
+                  <Stack.Screen name="Home" component={TabNavigatorHome} options={{headerShown: false}}/>
+                  <Stack.Screen name="Deck Detail" component={DeckDetail}
+                                options={{
+                                   headerStyle: {
+                                      backgroundColor: BACKGROUND,
+                                      color: 'white',
+                                   },
+                                   headerBackTitle: '',
+                                   headerTintColor: 'white'
+                                }}/>
+                  <Stack.Screen name="New Question" component={NewQuestion}
+                                options={{
+                                   headerStyle: {
+                                      backgroundColor: BACKGROUND,
+                                      color: 'white',
+                                   },
+                                   headerBackTitle: '',
+                                   headerTintColor: 'white'
+                                }}/>
+               </Stack.Navigator>
+            </View>
+         </NavigationContainer>
+      </Provider>
    );
 }
 

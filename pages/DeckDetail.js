@@ -17,6 +17,10 @@ class NewDeck extends Component {
       this.props.navigation.navigate('New Question', {id: id});
    };
 
+   deleteDeck = () => {
+      this.props.navigation.goBack();
+   };
+
    render() {
       return (
          <View style={styles.container}>
@@ -27,7 +31,7 @@ class NewDeck extends Component {
             <SecondaryButton title='Add card' style={styles.button} styleTouchable={styles.touchable}
                              onPress={this.addCard}/>
             <TextButton title='Delete deck' style={styles.buttonDelete} styleTouchable={styles.touchable}
-                             onPress={this.addCard}/>
+                        onPress={this.deleteDeck}/>
          </View>
       );
    }

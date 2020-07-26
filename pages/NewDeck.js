@@ -1,22 +1,36 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {KeyboardAvoidingView, Text, StyleSheet} from 'react-native';
 import {HEADLINE} from "../utils/colors";
 import PrimaryButton from "../components/PrimaryButton";
 import CustomTextInput from "../components/CustomTextInput";
 
 class NewDeck extends Component {
+   state = {
+      name: ''
+   };
+
+   updateState = (property, value) => {
+      this.setState({[property]: value})
+   };
+
    create = () => {
-      const id=1;
+      // TODO: change ID to the database ID
+      const {name} = this.state;
+      const id = 1;
+      this.setState({name: ''});
+      // TODO: save deck in the database
       this.props.navigation.navigate('Deck Detail', {id});
    };
 
    render() {
+      const {name} = this.state;
       return (
-         <View style={styles.container}>
+         <KeyboardAvoidingView style={styles.container} behavior="padding">
             <Text style={styles.title}>What is the title of your new deck?</Text>
-            <CustomTextInput placeholder={'Name of the deck'} style={{alignSelf: 'stretch'}}/>
+            <CustomTextInput value={name} placeholder={'Name of the deck'} style={{alignSelf: 'stretch'}}
+                             onChange={(e) => this.updateState('name', e.target.value)}/>
             <PrimaryButton title='Create Deck' style={{marginTop: 30}} onPress={this.create}/>
-         </View>
+         </KeyboardAvoidingView>
       );
    }
 }
