@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
-import DeckCard from "./DeckCard";
+import DeckCard from "../components/DeckCard";
 
 class DeckList extends Component {
 

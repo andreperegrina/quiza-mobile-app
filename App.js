@@ -1,18 +1,18 @@
 import {StatusBar} from 'expo-status-bar';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import DeckList from "./components/DeckList";
+import DeckList from "./pages/DeckList";
 import Constants from 'expo-constants';
 import 'react-native-gesture-handler';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {MaterialCommunityIcons, Feather} from '@expo/vector-icons';
-import NewDeck from "./components/NewDeck";
+import NewDeck from "./pages/NewDeck";
 import {BACKGROUND, CARD_BACKGROUND, HIGHLIGHT, SECONDARY} from "./utils/colors";
 import {enableScreens} from 'react-native-screens';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import DeckDetail from "./components/DeckDetail";
-import NewQuestion from "./components/NewQuestion";
+import DeckDetail from "./pages/DeckDetail";
+import NewQuestion from "./pages/NewQuestion";
 
 
 const Tab = createBottomTabNavigator();

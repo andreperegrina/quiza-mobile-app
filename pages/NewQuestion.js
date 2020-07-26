@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {HEADLINE} from "../utils/colors";
-import PrimaryButton from "./PrimaryButton";
-import Field from "./Field";
+import PrimaryButton from "../components/PrimaryButton";
+import Field from "../components/Field";
 
 class NewQuestion extends Component {
    submit = () => {

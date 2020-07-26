@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 import {HEADLINE, PARAGRAPH} from "../utils/colors";
-import PrimaryButton from "./PrimaryButton";
-import SecondaryButton from "./SecondaryButton";
-import TextButton from "./TextButton";
+import PrimaryButton from "../components/PrimaryButton";
+import SecondaryButton from "../components/SecondaryButton";
+import TextButton from "../components/TextButton";
 
 class NewDeck extends Component {
    addCard = () => {

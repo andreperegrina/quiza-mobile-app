@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {HEADLINE} from "../utils/colors";
-import PrimaryButton from "./PrimaryButton";
-import CustomTextInput from "./CustomTextInput";
+import PrimaryButton from "../components/PrimaryButton";
+import CustomTextInput from "../components/CustomTextInput";
 
 class NewDeck extends Component {
    create = () => {
