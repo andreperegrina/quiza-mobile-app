@@ -4,7 +4,7 @@ A Quiz Application to help you study and create your own questions.
 
 ## Tested
 
-This applications is have being test in **iOS** running in an **iPhone 11**
+This applications it was tested in **iOS** running in an **iPhone 11**
 
 ## Project structure
 
