@@ -10,9 +10,11 @@ class QuestionCard extends Component {
       super(props);
       const flipAnimationValue = new Animated.Value(0);
       flipAnimationValue.addListener(({value}) => {
+         // Saving the current state of the animation to know which side of the card is up
          this.setState({currentAnimationValue: value});
       });
       Dimensions.addEventListener('change', () => {
+         // Saving the current orientation to change the card width and height value
          this.setState({
             orientation: isPortrait() ? 'portrait' : 'landscape'
          });
@@ -21,10 +23,12 @@ class QuestionCard extends Component {
          orientation: isPortrait() ? 'portrait' : 'landscape',
          currentAnimationValue: 0,
          flipAnimationValue,
+         // Interpolate animation for the front of the card
          frontCardInterpolate: flipAnimationValue.interpolate({
             inputRange: [0, 180],
             outputRange: ['0deg', '180deg'],
          }),
+         // Interpolate animation for the back of the card
          backCardInterpolate: flipAnimationValue.interpolate({
             inputRange: [0, 180],
             outputRange: ['180deg', '360deg']
