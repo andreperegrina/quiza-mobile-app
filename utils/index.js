@@ -1,3 +1,5 @@
+import {Dimensions} from 'react-native';
+
 /**
  * @description Convert string data to JSON
  * @param {string} data
@@ -22,3 +24,22 @@ export const convertObjectToArray = (object) => {
  * @returns {boolean} Returns true if the object has not property
  */
 export const isEmptyObject = (object) => Object.keys(object).length <= 0;
+
+
+/**
+ * @description Check if the phone is on portrait mode
+ * @returns {boolean} Returns true if the phone is on portrait mode
+ */
+export const isPortrait = () => {
+   const dim = Dimensions.get('screen');
+   return dim.height >= dim.width;
+};
+
+/**
+ * @description Check if the phone is on landscape mode
+ * @returns {boolean} Returns true if the phone is on landscape mode
+ */
+export const isLandscape = () => {
+   const dim = Dimensions.get('screen');
+   return dim.width >= dim.height;
+};

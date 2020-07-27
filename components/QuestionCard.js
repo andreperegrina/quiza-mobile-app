@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text, Animated, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, Animated, TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import {CARD_BACKGROUND, HEADLINE, PARAGRAPH, SECONDARY} from "../utils/colors";
 import CustomButton from "./CustomButton";
+import {isPortrait} from "../utils";
 
 class QuestionCard extends Component {
    constructor(props) {
@@ -11,7 +12,13 @@ class QuestionCard extends Component {
       flipAnimationValue.addListener(({value}) => {
          this.setState({currentAnimationValue: value});
       });
+      Dimensions.addEventListener('change', () => {
+         this.setState({
+            orientation: isPortrait() ? 'portrait' : 'landscape'
+         });
+      });
       this.state = {
+         orientation: isPortrait() ? 'portrait' : 'landscape',
          currentAnimationValue: 0,
          flipAnimationValue,
          frontCardInterpolate: flipAnimationValue.interpolate({
@@ -21,7 +28,7 @@ class QuestionCard extends Component {
          backCardInterpolate: flipAnimationValue.interpolate({
             inputRange: [0, 180],
             outputRange: ['180deg', '360deg']
-         })
+         }),
       };
    }
 
@@ -42,11 +49,26 @@ class QuestionCard extends Component {
             useNativeDriver: true
          }).start();
       }
+   }
 
+   setScore(answer) {
+      const {totalQuestions} = this.props;
+      const {score, totalAnswer} = this.state;
+      const newState = {
+         totalAnswer: totalAnswer + 1
+      };
+      if (answer) {
+         newState.score = score + 1
+      }
+      this.setState(newState);
+      if (totalAnswer === totalQuestions) {
+
+      }
    }
 
    render() {
-      const {frontCardInterpolate, backCardInterpolate, currentAnimationValue} = this.state;
+      const {frontCardInterpolate, backCardInterpolate, currentAnimationValue, orientation} = this.state;
+      const {item = {}, currentQuestionNumber, totalQuestions, setAnswer} = this.props;
       const frontAnimatedStyle = {
          transform: [
             {rotateY: frontCardInterpolate}
@@ -64,27 +86,46 @@ class QuestionCard extends Component {
          </TouchableOpacity>
       );
 
-      const {item = {}} = this.props;
       const {question, answer} = item;
+
+      const windowWidth = Dimensions.get('window').width;
+      const windowHeight = Dimensions.get('window').height;
+      const cardStyle = {
+         width: (orientation === "portrait" ? windowWidth - 50 : windowWidth - 150),
+         height: (orientation === "portrait" ? 400 : windowHeight - 100),
+      };
 
       return (
          <View style={styles.container}>
             <View>
-               <Animated.View style={[styles.card, styles.frontCard, frontAnimatedStyle]}>
+               <Animated.View style={[cardStyle, styles.card, styles.frontCard, frontAnimatedStyle]}>
                   {FlipButton}
                   <View style={styles.contentContainer}>
                      <View style={styles.textContainer}>
                         <Text style={styles.question}>{question}</Text>
                      </View>
-                     <CustomButton type='primary' title='Correct' style={{marginBottom: 20}} onPress={this.startQuiz}/>
-                     <CustomButton type='secondary' title='Incorrect' onPress={this.addCard}/>
+                     <CustomButton type='primary' title='Correct' style={{marginBottom: 15}}
+                                   onPress={() => setAnswer(true)}/>
+                     <CustomButton type='quaternary' title='Incorrect' style={{marginBottom: 15}}
+                                   onPress={() => setAnswer(false)}/>
+                     <View style={styles.textQuestionNumbersContainer}>
+                        <Text style={styles.textQuestionNumbers}>{currentQuestionNumber}</Text>
+                        <Text style={styles.textQuestionNumbers}>/</Text>
+                        <Text style={styles.textQuestionNumbers}>{totalQuestions}</Text>
+                     </View>
                   </View>
                </Animated.View>
-               <Animated.View style={[backAnimatedStyle, styles.card, styles.backCard]}>
+               <Animated.View style={[cardStyle, backAnimatedStyle, styles.card, styles.backCard]}>
                   {FlipButton}
                   <View style={styles.contentContainer}>
                      <View style={styles.textContainer}>
+                        <Text style={styles.label}>Answer:</Text>
                         <Text style={styles.answer}>{answer}</Text>
+                     </View>
+                     <View style={styles.textQuestionNumbersContainer}>
+                        <Text style={styles.textQuestionNumbers}>{currentQuestionNumber}</Text>
+                        <Text style={styles.textQuestionNumbers}>/</Text>
+                        <Text style={styles.textQuestionNumbers}>{totalQuestions}</Text>
                      </View>
                   </View>
                </Animated.View>
@@ -94,6 +135,7 @@ class QuestionCard extends Component {
    }
 }
 
+
 const styles = StyleSheet.create({
    container: {
       padding: 100,
@@ -101,8 +143,6 @@ const styles = StyleSheet.create({
       paddingRight: 10,
    },
    card: {
-      width: 300,
-      height: 500,
       backfaceVisibility: 'hidden',
       backgroundColor: CARD_BACKGROUND,
       borderRadius: 10,
@@ -122,12 +162,25 @@ const styles = StyleSheet.create({
       flex: 1,
    },
    question: {
-      fontSize: 22,
+      fontSize: 26,
       color: HEADLINE,
    },
-   answer: {
+   textQuestionNumbersContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+   },
+   textQuestionNumbers: {
       fontSize: 16,
+      color: SECONDARY,
+   },
+   label: {
+      fontSize: 16,
+      marginBottom: 8,
       color: PARAGRAPH,
+   },
+   answer: {
+      fontSize: 22,
+      color: HEADLINE,
    },
    frontCard: {},
    backCard: {

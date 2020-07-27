@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {
    PRIMARY_BUTTON,
-   PRIMARY_BUTTON_TEXT,
+   PRIMARY_BUTTON_TEXT, QUATERNARY_BUTTON, QUATERNARY_BUTTON_TEXT,
    SECONDARY_BUTTON,
    SECONDARY_BUTTON_TEXT,
    TERTIARY_BUTTON,
@@ -10,8 +10,27 @@ import {
 } from "../utils/colors";
 
 const CustomButton = ({title, onPress, type, styleTouchable, ...props}) => {
-   const buttonStyle = type === 'primary' ? styles.primaryButton : type === "secondary" ? styles.secondaryButton : styles.tertiaryButton;
-   const textStyle = type === 'primary' ? styles.primaryText : type === "secondary" ? styles.secondaryText : styles.tertiaryText;
+
+   let buttonStyle = styles.primaryButton;
+   let textStyle = styles.primaryText;
+   switch (type) {
+      case 'secondary':
+         buttonStyle = styles.secondaryButton;
+         textStyle = styles.secondaryText;
+         break;
+      case 'tertiary':
+         buttonStyle = styles.tertiaryButton;
+         textStyle = styles.tertiaryText;
+         break;
+      case 'quaternary':
+         buttonStyle = styles.quaternaryButton;
+         textStyle = styles.quaternaryText;
+         break;
+      default:
+         buttonStyle = styles.primaryButton;
+         textStyle = styles.primaryText;
+         break;
+   }
    return (
       <TouchableOpacity style={styleTouchable} onPress={onPress}>
          <View {...props} style={[styles.button, buttonStyle, props.style]}>
@@ -37,6 +56,9 @@ const styles = StyleSheet.create({
    tertiaryButton: {
       backgroundColor: TERTIARY_BUTTON
    },
+   quaternaryButton: {
+      backgroundColor: QUATERNARY_BUTTON
+   },
    text: {
       textAlign: 'center',
    },
@@ -48,6 +70,9 @@ const styles = StyleSheet.create({
    },
    tertiaryText: {
       color: TERTIARY_BUTTON_TEXT
+   },
+   quaternaryText: {
+      color: QUATERNARY_BUTTON_TEXT
    }
 });
 

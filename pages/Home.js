@@ -45,7 +45,7 @@ const TabNavigatorHome = () => (
       }
    }}>
       <Tab.Screen activeTintColor={'red'} name="Decks" component={DeckList} options={{
-         tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="cards" size={size} color={color}/>
+         tabBarIcon: ({color, size}) => <Feather name="inbox" size={size} color={color}/>
       }}/>
       <Tab.Screen name="New Deck" component={NewDeck} options={{
          tabBarIcon: ({color, size}) => <Feather name="plus-circle" size={size} color={color}/>

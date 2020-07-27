@@ -6,7 +6,6 @@ import {CARD_BACKGROUND, HEADLINE, HIGHLIGHT, PARAGRAPH, SECONDARY} from '../uti
 const DeckCard = ({title, questions = [], icon}) => {
    return (
       <View style={styles.container}>
-         <MaterialCommunityIcons style={styles.icon} name={icon ? icon : "card"} size={40} color={HIGHLIGHT}/>
          <View style={styles.textContainer}>
             <Text style={styles.nameText}>{title}</Text>
             <Text style={styles.cardsCountText}>{questions.length} Cards</Text>
