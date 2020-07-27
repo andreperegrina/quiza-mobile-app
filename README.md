@@ -1,6 +1,10 @@
 # Project
 
-A Quiz Application to help you study and create your own questions 
+A Quiz Application to help you study and create your own questions.
+
+## Tested
+
+This applications is have being test in **iOS** running in an **iPhone 11**
 
 ## Project structure
 
@@ -29,3 +33,14 @@ Following the course I try to run the application with pure expo. But because is
 To solve this problem I follow the current documentation to use **create react native app**, I leave the instruction's 
 down below.
 
+First we have to execute ``yarn install``
+
+After all libraries are installed we have to change to the **ios folder** (`cd ios`) and execute ``pod install`` 
+inside that folder. 
+
+## Running the application
+
+To run the application you just have to run the script ``react-native run-ios``
+
+It will take some time to compile all the project after the ``...`` stops it should show this
+message ``success Successfully launched the app on the simulator``
